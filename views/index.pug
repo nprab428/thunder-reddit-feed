@@ -4,19 +4,8 @@ block scripts
   scripts(src='/javascripts/script.js')
 block content
   h1= 'OKC Thunder feed'
-  - 
-    let dataModified = data.substring(1, data.length-1)
-      .replace(/\}, \{/g, '\}:::\{') // provide better delimiter b/w objects
-      .split(':::')
-   	  .map(s => {
-   	  	return JSON.parse(s
-   	  	 .replace(/,\s\'(.+?)\':/g, ', \"$1\":') // double quote property names (minus first)
-      	 .replace(/\{\'(.+?)\':/g, '\{\"$1\":') // double quote first property name
-      	 .replace(/\s\'(.+?)\',/g, ' \"$1\",') // double quote fields (minus last)
-      	 .replace(/(?!(?:.*:))\s\'(.+?)\'\}/g, '\"$1\"\}')); // double quote last field (use negative lookahead)
-   	  });
-  ul
-    each post in dataModified
+  each post in data
+    ul
       li=post["title"]
       ul
         each val, index in post
