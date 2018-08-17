@@ -13,16 +13,7 @@ const r = new Snoowrap({
   password: credentials.password,
 });
 
-const keywords = ['thunder', 'okc', 'oklahoma'];
-
-function checkKeywords(postTitle) {
-  for (let i = 0; i < keywords.length; i += 1) {
-    if (postTitle.indexOf(keywords[i]) >= 0) {
-      return true;
-    }
-  }
-  return false;
-}
+const regex = /(thunder|okc|oklahoma|westbrook)/i;
 
 function getRecency(timestamp) {
   const timeNow = Math.round((new Date()).getTime() / 1000);
@@ -46,7 +37,7 @@ function getRecency(timestamp) {
 
 function getData() {
   return r.getSubreddit('nba').getHot({ limit: 1000 })
-    .filter(post => checkKeywords(post.title.toLowerCase()))
+    .filter(post => post.title.match(regex))
     .map(post => ({
       title: post.title,
       score: post.score,
