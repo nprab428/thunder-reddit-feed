@@ -1,6 +1,4 @@
-/*
-DEPRECATED - use api.js to take advantage of client-side logic
-*/
+// This api is reachable through /api/keywords/kw=foo&kw=bar&...
 
 const express = require('express');
 
@@ -16,8 +14,6 @@ const r = new Snoowrap({
   username: credentials.username,
   password: credentials.password,
 });
-
-const regex = /(thunder|okc|oklahoma|westbrook)/i;
 
 function getRecency(timestamp) {
   const timeNow = Math.round(new Date().getTime() / 1000);
@@ -39,12 +35,14 @@ function getRecency(timestamp) {
   return `${relativeDays} day${relativeDays === 1 ? '' : 's'} ago`;
 }
 
-function getData() {
+function getData(keywords) {
+  const regex = new RegExp(`(${keywords.join('|')})`, 'i');
   return r
     .getSubreddit('nba')
     .getHot({ limit: 1000 })
     .filter(post => post.title.match(regex))
     .map(post => ({
+      id: post.created_utc,
       title: post.title,
       score: post.score,
       comments: post.num_comments,
@@ -54,8 +52,11 @@ function getData() {
     }));
 }
 
-router.get('/', (req, res) => {
-  getData().then(data => res.render('index', { title: 'r/nba - OKC Thunder', data }),);
+router.get('/keywords', (req, res) => {
+  const keywords = Array.isArray(req.query.kw)
+    ? [...req.query.kw]
+    : [req.query.kw];
+  getData(keywords).then(data => res.json(data));
 });
 
 module.exports = router;
