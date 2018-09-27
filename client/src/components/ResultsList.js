@@ -34,7 +34,7 @@ export default class ResultsList extends Component {
       <div className="results-container">
         <p className="result-count">
           {this.props.posts.length}{" "}
-          {this.props.posts.length > 1 ? "results" : "result"}:
+          {this.props.posts.length === 1 ? "result" : "results"}:
         </p>
         {this.renderResults()}
       </div>
