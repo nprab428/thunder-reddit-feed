@@ -1,6 +1,6 @@
 # thunder-reddit-feed
 
-This is my personalized filter on r/nba posts. Since my favorite team is the Oklahoma City Thunder, I've made some default keywords that filter to their relevant posts.
+This is my personalized filter on r/nba posts. Since I browse r/nba frequently and because my team is the Oklahoma City Thunder, I've made some default keywords that filter to their relevant posts.
 
 As seen in the gif, the default keywords are "westbrook", "thunder", and "okc". On page load, it pulls all posts whose title contains those specified keywords.
 
