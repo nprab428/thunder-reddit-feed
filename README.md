@@ -1,4 +1,4 @@
-# thunder-reddit-feed
+# nba-reddit-feed
 
 This is my personalized filter on r/nba posts. Since I browse r/nba frequently and because my team is the Oklahoma City Thunder, I've made some default keywords that filter to their relevant posts.
 
